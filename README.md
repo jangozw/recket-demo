@@ -21,3 +21,34 @@ print:
 ```
 now you can open url in your browser!
 
+
+## base data
+
+msyql connetction: 
+```text
+database: test
+user: root
+pass: 123456
+ip: localhost
+```
+execute sql:
+```mysql
+create database test;
+use test;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `age` int NOT NULL DEFAULT '0',
+  `info` text COLLATE utf8mb4_unicode_ci,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `user` VALUES (3, '李云龙', 33, '师长', '2022-06-29 08:59:55', '2022-06-29 08:59:55', NULL);
+INSERT INTO `user` VALUES (4, '赵云', 45, '团长', '2022-06-23 08:59:55', '2022-06-29 09:00:40', NULL);
+INSERT INTO `user` VALUES (5, '刘强东', 42, '京东', NULL, '2022-06-29 09:01:36', NULL);
+INSERT INTO `user` VALUES (6, '李文艺', 22, '上海市长', NULL, '2022-06-29 10:25:53', NULL);
+
+```
