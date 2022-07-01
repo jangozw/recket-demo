@@ -1,3 +1,4 @@
+use futures::executor::block_on;
 use futures::TryStreamExt;
 use crate::model::db;
 use sqlx::{Error, Row};
@@ -37,4 +38,20 @@ pub async fn get_user_detail(id :u64) -> Result<User, Error> {
         .bind(id)
         .fetch_one(&ins.db).await;
     stream
+}
+
+
+#[test]
+fn test_get_user_detail(){
+    let res = block_on(get_user_detail(3));
+    match res {
+        Ok(user) => {
+            println!("{:?}", user)
+        }
+        Err(e) => {
+            let msg = e.as_database_error().unwrap().message();
+            println!("err: {}", msg)
+        }
+    }
+
 }

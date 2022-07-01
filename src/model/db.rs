@@ -1,6 +1,7 @@
 use std::sync::Arc;
 use sqlx::{MySqlPool};
 use futures::executor::block_on;
+use sqlx::Error;
 
 pub struct Instance{
     pub db: sqlx::pool::Pool<sqlx::MySql>
@@ -20,5 +21,25 @@ async fn new()->Instance{
     let pool =  MySqlPool::connect("mysql://root:123456@127.0.0.1/test").await.unwrap();
     Instance{
         db: pool,
+    }
+}
+
+
+
+
+pub fn err_string(e: sqlx::Error)->String{
+    return match e {
+        Error::Database(d) => {
+            d.message().to_string()
+        }
+        Error::RowNotFound => {
+            "row not found".to_string()
+        }
+        Error::TypeNotFound { .. } => {
+            "type not found".to_string()
+        }
+        _ => {
+            "unknown err".to_string()
+        }
     }
 }
